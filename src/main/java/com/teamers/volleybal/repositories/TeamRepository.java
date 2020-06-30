@@ -12,7 +12,7 @@ public class TeamRepository{
     public static List<Team> alleTeamsList = new ArrayList<>();
 
 
-    public void fillAlleTeamsList() {
+    public static void fillAlleTeamsList() {
         Team team1 = new Team(1L, "WSV Dames 1");
         Team team2 = new Team(2L, "WSV Dames 2");
         Team team3 = new Team(3L, "Smash Dames 1");

@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class TeamController {
 
-    private TeamRepository teamRepository;
     private TeamledenRepository teamledenRepository;
     private EventRepository eventRepository;
 
-    public TeamController(TeamRepository teamRepository, TeamledenRepository teamledenRepository, EventRepository eventRepository) {
-        this.teamRepository = teamRepository;
+    public TeamController(TeamledenRepository teamledenRepository, EventRepository eventRepository) {
         this.teamledenRepository = teamledenRepository;
         this.eventRepository = eventRepository;
     }
@@ -53,26 +52,57 @@ public class TeamController {
     @GetMapping("/team/teams")
     public List<Team> showTeams() {
         if (TeamRepository.alleTeamsList.isEmpty()) {
-            teamRepository.fillAlleTeamsList();
+            TeamRepository.fillAlleTeamsList();
         }
         return TeamRepository.alleTeamsList;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/team/{id}/")
-    public String getTeam(@PathVariable("id") Long teamID) {
+    public Team getTeam(@PathVariable("id") Long teamID) {
         if (TeamRepository.alleTeamsList.isEmpty()) {
-            teamRepository.fillAlleTeamsList();
+            TeamRepository.fillAlleTeamsList();
         }
         List<Team> teamsList = TeamRepository.alleTeamsList;
-        Optional<String> teamnaam = teamsList.stream().filter(team -> teamID.equals(team.getTeamID())).findFirst().map(Team::getTeamnaam);
-        return teamnaam.orElse("Teamnaam does not exist");
+        List<Team> oneTeamList = teamsList.stream()
+                                          .filter(team -> team.getTeamID().equals(teamID)).collect(Collectors.toList());
+        if (!oneTeamList.isEmpty()) {
+            return oneTeamList.get(0);
+        } else {
+            return new Team("Teamnaam does not exist");
+        }
     }
 
-    @GetMapping("/team/{teamID}/events")
-    public Optional<Event> showEvents(@PathVariable Long teamID) {
-        return eventRepository.findById(teamID);
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/team/{id}/events")
+    public List<Event> showWedstrijden(@PathVariable("id") Long teamID) {
+        if (EventRepository.allEventsList.isEmpty()) {
+            eventRepository.fillEventList();
+        }
+        return EventRepository.allEventsList;
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/team/{id}/wedstrijden")
+    public List<Speler> showWedstrijdspelers(@PathVariable("id") Long wedstrijdID) {
+        if (EventRepository.allEventsList.isEmpty()) {
+            eventRepository.fillEventList();
+        }
+        List<Event> eventList = EventRepository.allEventsList;
+        List<Event> oneEventList = eventList.stream()
+                                            .filter(event -> event.getEventID().equals(wedstrijdID)).collect(Collectors.toList());
+        if (!oneEventList.isEmpty()) {
+            return oneEventList.get(0).getAanwezigeSpelers();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+
+//    @GetMapping("/team/{teamID}/events")
+//    public Optional<Event> showEvents(@PathVariable Long teamID) {
+//        return eventRepository.findById(teamID);
+//    }
 
 //    @PostMapping("/teams")
 //    public Team maakTeam(@RequestBody Team team) {

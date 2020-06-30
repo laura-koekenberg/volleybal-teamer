@@ -18,13 +18,13 @@ public class TeamledenRepository {
     public void fillSpelersOverzicht() {
         List<Speler> spelerList = getSpelers();
 
-        for (int index = 0; index < 16; index++) {
+        for (int index = 0; index < 18; index++) {
             Long teamId = (long) ((random() * 4L) + 1L);
             spelersPerTeam.put(spelerList.get(index), teamId);
         }
     }
 
-    private List<Speler> getSpelers() {
+    public static List<Speler> getSpelers() {
         List<Speler> spelerList = new ArrayList<>();
         Speler speler1 = new Speler("Marieke", "marieke@wsv.nl", 6, "MIDDEN");
         Speler speler2 = new Speler("Ans", "ans@wsv.nl", 5, "BUITEN");
@@ -35,13 +35,15 @@ public class TeamledenRepository {
         Speler speler7 = new Speler("Jet", "jet@wsv.nl", 12, "MIDDEN");
         Speler speler8 = new Speler("Laura", "laura@wsv.nl", 16, "DIAGONAAL");
         Speler speler9 = new Speler("Mariska K", "mariskaK@wsv.nl", 23, "MIDDEN");
-        Speler speler10 = new Speler("Nienke", "nienke@wsv.nl", 6, "BUITEN");
-        Speler speler11 = new Speler("Poppy", "poppy@wsv.nl", 6, "MIDDEN");
-        Speler speler12 = new Speler("Linda", "linda@wsv.nl", 6, "BUITEN");
-        Speler speler13 = new Speler("Mariska P", "mariskaP@wsv.nl", 6, "DIAGONAAL");
-        Speler speler14 = new Speler("Ruth", "ruth@wsv.nl", 6, "BUITEN");
-        Speler speler15 = new Speler("Rianne", "rianne@wsv.nl", 6, "MIDDEN");
-        Speler speler16 = new Speler("Ellen", "ellen@wsv.nl", 6, "SPELVERDELER");
+        Speler speler10 = new Speler("Nienke", "nienke@wsv.nl", 2, "BUITEN");
+        Speler speler11 = new Speler("Poppy", "poppy@wsv.nl", 5, "MIDDEN");
+        Speler speler12 = new Speler("Linda", "linda@wsv.nl", 13, "BUITEN");
+        Speler speler13 = new Speler("Mariska P", "mariskaP@wsv.nl", 7, "DIAGONAAL");
+        Speler speler14 = new Speler("Ruth", "ruth@wsv.nl", 66, "BUITEN");
+        Speler speler15 = new Speler("Rianne", "rianne@wsv.nl", 15, "MIDDEN");
+        Speler speler16 = new Speler("Ellen", "ellen@wsv.nl", 7, "SPELVERDELER");
+        Speler speler17 = new Speler("Harry", "harry@wsv.nl", 9, "BUITEN");
+        Speler speler18 = new Speler("Sjoerd", "sjoerd@wsv.nl", 34, "MIDDEN");
         spelerList.add(speler1);
         spelerList.add(speler2);
         spelerList.add(speler3);
@@ -58,6 +60,8 @@ public class TeamledenRepository {
         spelerList.add(speler14);
         spelerList.add(speler15);
         spelerList.add(speler16);
+        spelerList.add(speler17);
+        spelerList.add(speler18);
         return spelerList;
 
 

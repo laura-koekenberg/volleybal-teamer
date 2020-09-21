@@ -23,22 +23,23 @@ public class Event {
     private List<Speler> aanwezigeSpelers;
 
 
-    public Event(Long eventID, String typeEvent, Team thuisteam, LocalDate datum, String starttijd) {
+    public Event(Long eventID, String typeEvent, Team thuisteam, LocalDate datum, String starttijd, List<Speler> aanwezigeSpelers) {
         this.eventID = eventID;
         this.typeEvent = typeEvent;
         this.thuisteam = thuisteam;
         this.starttijd = starttijd;
+        this.aanwezigeSpelers = aanwezigeSpelers;
         this.datum = datum.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.weekdag = getWeekdag(datum);
-//        this.eindtijd = getDuur(LocalTime.parse(String.format(starttijd, DateTimeFormatter.ofPattern("HH.MM"))), typeEvent);
+        this.tegenstander = new Team("nvt");
+        this.eindtijd = getDuur(LocalTime.parse(String.format(starttijd, DateTimeFormatter.ofPattern("HH.MM"))), typeEvent);
     }
 
-    public Event(Long eventID, String typeEvent, Team thuisteam, LocalDate datum, String starttijd, Team tegenstander, List<Speler> aanwezigeSpelers) {
-        this(eventID, typeEvent, thuisteam, datum, starttijd);
+    public Event(Long eventID, String typeEvent, Team thuisteam, LocalDate datum, String starttijd, List<Speler> aanwezigeSpelers, Team tegenstander ) {
+        this(eventID, typeEvent, thuisteam, datum, starttijd, aanwezigeSpelers);
         this.tegenstander = tegenstander;
-        this.aanwezigeSpelers = aanwezigeSpelers;
         this.weekdag = getWeekdag(datum);
-//        this.eindtijd = getDuur(LocalTime.parse(String.format(starttijd, DateTimeFormatter.ofPattern("HH.MM"))), typeEvent);
+        this.eindtijd = getDuur(LocalTime.parse(String.format(starttijd, DateTimeFormatter.ofPattern("HH.MM"))), typeEvent);
     }
 
     private String getDuur(LocalTime starttijd, String typeEvent) {

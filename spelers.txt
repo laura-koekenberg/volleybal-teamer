@@ -1,0 +1,7 @@
+Marieke, marieke@wsv.nl, 6, MIDDEN
+Ans, ans@wsv.nl, 5, BUITEN
+Sandra, sandra@wsv.nl, 8, SPELVERDELER
+Maya, maya@wsv.nl, 9, DIAGONAAL
+Bianca, bianca@wsv.nl, 20, BUITEN
+Petra, petra@wsv.nl, 1, BUITEN
+extraSpeler, extra@speler.nl, 12, BUITEN

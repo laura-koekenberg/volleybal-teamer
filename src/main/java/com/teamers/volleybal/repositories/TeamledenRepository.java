@@ -3,10 +3,11 @@ package com.teamers.volleybal.repositories;
 import com.teamers.volleybal.domein.Speler;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 import static java.lang.Math.random;
 
@@ -16,11 +17,11 @@ public class TeamledenRepository {
     public static Map<Speler, Long> spelersPerTeam = new HashMap<>();
 
     public void fillSpelersOverzicht() {
-        List<Speler> spelerList = getSpelers();
-
-        for (int index = 0; index < 18; index++) {
+//        List<Speler> spelerList = getSpelers();
+        List<Speler> spelerListFromFile = getSpelersListFromResource();
+        for (int index = 0; index < spelerListFromFile.size(); index++) {
             Long teamId = (long) ((random() * 4L) + 1L);
-            spelersPerTeam.put(spelerList.get(index), teamId);
+            spelersPerTeam.put(spelerListFromFile.get(index), teamId);
         }
     }
 
@@ -63,7 +64,34 @@ public class TeamledenRepository {
         spelerList.add(speler17);
         spelerList.add(speler18);
         return spelerList;
+    }
 
+    public List<Speler> getSpelersListFromResource() {
+        List<Speler> spelerList = new ArrayList<>();
+        try (final Scanner scanner = new Scanner(new File("spelers.txt"))) {
+            while (scanner.hasNext()) {
+//                System.out.println(scanner.nextLine());
+                List<String> list = Arrays.asList(scanner.nextLine().split(", "));
+                System.out.println(list);
+                Speler spelerFromFile = new Speler();
+                spelerFromFile.setNaam(list.get(0));
+                spelerFromFile.setEmail(list.get(1));
+                spelerFromFile.setRugnummer(Integer.parseInt(list.get(2)));
+                spelerFromFile.setBasispositie(list.get(3));
+                spelerList.add(spelerFromFile);
+            }
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        }
+        return spelerList;
+    }
 
+    public void addSpelerToSpelersListFromResource(Speler speler) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("spelers.txt",true));
+        writer.append(speler.getNaam()).append(", ")
+              .append(speler.getEmail()).append(", ")
+              .append(String.valueOf(speler.getRugnummer())).append(", ")
+              .append(speler.getBasispositie().toUpperCase()).append("\n");
+        writer.close();
     }
 }

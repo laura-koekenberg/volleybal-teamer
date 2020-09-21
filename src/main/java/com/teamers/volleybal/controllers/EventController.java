@@ -1,45 +1,61 @@
 package com.teamers.volleybal.controllers;
 
 
+import com.teamers.volleybal.domein.Event;
+import com.teamers.volleybal.domein.Speler;
+import com.teamers.volleybal.repositories.EventRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-//import com.teamers.volleybal.repositories.EventRepository;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class EventController {
 
-//    private EventRepository eventRepository;
-//
-//    public EventController(EventRepository eventRepository) {
-//        this.eventRepository = eventRepository;
-//    }
+    private EventRepository eventRepository;
 
-//    private Team wsv = new Team("WSV");
-//    private Speler speler1 = new Speler("Laura", "laura.koekenberg@gmail.com", 9, "mid", "www.instagram.com");
-//    private Speler speler2 = new Speler("Jeroen", "jeroen.email@gmail.com", 12, "spelverdeler");
-//    private Event training = new Event("training", wsv.getTeamnaam(), LocalDate.of(2019, 9, 10), LocalTime.of(20, 00), aanwezigeSpelers);
-//    private Event wedstrijd = new Event("wedstrijd", wsv.getTeamnaam(), LocalDate.of(2019, 9, 19), LocalTime.of(19, 00),"smash");
-//    private Event toernooi = new Event("toernooi", wsv.getTeamnaam(), LocalDate.of(2019, 9, 30), LocalTime.of(9, 00), LocalTime.of(17, 00));
+    public EventController(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
-//    @GetMapping("/events/teams")
-//    public String showAllEvents() {
-//        return training.toString() + wedstrijd.toString() + toernooi.toString();
-//    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/team/{id}/events")
+    public List<Event> showWedstrijden(@PathVariable("id") Long teamID) {
+        if (EventRepository.allEventsList.isEmpty()) {
+            eventRepository.fillEventList();
+        }
 
-//    @GetMapping("/events/{teamID}")
-//    public Optional<Event> showEventsByTeam(@PathVariable Long teamID) {
-//        return eventRepository.findById(teamID);
-//    }
-//
+        List<Event> eventList = EventRepository.allEventsList;
+        return eventList.stream()
+                .filter(event -> event.getThuisteam().getTeamID().equals(teamID) || event.getTegenstander().getTeamID().equals(teamID))
+                .collect(Collectors.toList());
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/team/{id}/wedstrijden")
+    public List<Speler> showWedstrijdspelers(@PathVariable("id") Long wedstrijdID) {
+        if (EventRepository.allEventsList.isEmpty()) {
+            eventRepository.fillEventList();
+        }
+        List<Event> eventList = EventRepository.allEventsList;
+        List<Event> oneEventList = eventList.stream()
+                                            .filter(event -> event.getEventID().equals(wedstrijdID)).collect(Collectors.toList());
+        if (!oneEventList.isEmpty()) {
+            return oneEventList.get(0).getAanwezigeSpelers();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+
+
 //    @PostMapping("/events")
 //    public Event voegEventToe(@RequestBody Event event) {
 //        return eventRepository.save(event);
-//    }
-//
-//    @GetMapping("/events/team/{eventID}")
-//    public List<Speler> geefBeschikbareSpelersEvent(@PathVariable Long eventID) {
-//        Optional<Event> event = eventRepository.findById(eventID);
-//        return event.get().createListBeschikbareSpelers();
 //    }
 //
 //    @PostMapping("/events/team/eventID")

@@ -29,7 +29,7 @@ public class TeamController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/team/{id}/spelers")
     public List<Speler> showTeamleden(@PathVariable("id") Long teamID) throws IOException {
-//        teamledenRepository.addSpelerToSpelersListFromResource(new Speler("extraSpeler", "extra@speler.nl", 12, "buiten"));
+        teamledenRepository.addSpelerToSpelersListFromResource(new Speler("Speler5", "test@speler.nl", 19, "Diagonaal"));
         if (TeamledenRepository.spelersPerTeam.isEmpty()) {
             teamledenRepository.fillSpelersOverzicht();
         }
@@ -48,22 +48,21 @@ public class TeamController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/team/teams")
-    public List<Team> showTeams() {
-        if (TeamRepository.alleTeamsList.isEmpty()) {
-            TeamRepository.fillAlleTeamsList();
-        }
+    public List<Team> showTeams() throws IOException {
+        TeamRepository.addTeamToTeamsListFromResource(new Team("12","Bruvoc DS3"));
         return TeamRepository.alleTeamsList;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/team/{id}/")
-    public Team getTeam(@PathVariable("id") Long teamID) {
+    public Team getTeam(@PathVariable("id") String teamID) {
         if (TeamRepository.alleTeamsList.isEmpty()) {
-            TeamRepository.fillAlleTeamsList();
+            TeamRepository.getTeamListFromResource();
         }
         List<Team> teamsList = TeamRepository.alleTeamsList;
         List<Team> oneTeamList = teamsList.stream()
-                                          .filter(team -> team.getTeamID().equals(teamID)).collect(Collectors.toList());
+                                          .filter(team -> team.getTeamID().equals(teamID))
+                                          .collect(Collectors.toList());
         if (!oneTeamList.isEmpty()) {
             return oneTeamList.get(0);
         } else {

@@ -5,3 +5,11 @@ Maya, maya@wsv.nl, 9, DIAGONAAL
 Bianca, bianca@wsv.nl, 20, BUITEN
 Petra, petra@wsv.nl, 1, BUITEN
 extraSpeler, extra@speler.nl, 12, BUITEN
+extraSpeler, extra@speler.nl, 12, BUITEN
+extraSpeler2, test@speler.nl, 19, DIAGONAAL
+extraSpeler2, test@speler.nl, 19, DIAGONAAL
+extraSpeler2, test@speler.nl, 19, DIAGONAAL
+extraSpeler2, test@speler.nl, 19, DIAGONAAL
+extraSpeler2, test@speler.nl, 19, DIAGONAAL
+extraSpeler2, test@speler.nl, 19, DIAGONAAL
+extraSpeler2, test@speler.nl, 19, DIAGONAAL

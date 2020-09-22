@@ -1,0 +1,10 @@
+1, WSV Dames 1
+2, Smash Dames 1
+3, WSV Dames 2
+4, Smash Dames 3
+5, Boemerang Dames 1
+6, Boemerang Heren 1
+7, Blok'74 Heren 2
+8, Bruvoc DS2
+8, Bruvoc DS2
+12, Bruvoc DS3

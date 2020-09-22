@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 public class EventController {
 
-    private EventRepository eventRepository;
+    private final EventRepository eventRepository;
 
     public EventController(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
@@ -24,15 +24,16 @@ public class EventController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/team/{id}/events")
-    public List<Event> showWedstrijden(@PathVariable("id") Long teamID) {
+    public List<Event> showWedstrijden(@PathVariable("id") String teamID) {
         if (EventRepository.allEventsList.isEmpty()) {
             eventRepository.fillEventList();
         }
 
         List<Event> eventList = EventRepository.allEventsList;
         return eventList.stream()
-                .filter(event -> event.getThuisteam().getTeamID().equals(teamID) || event.getTegenstander().getTeamID().equals(teamID))
-                .collect(Collectors.toList());
+                        .filter(event -> event.getThuisteam().getTeamID().equals(teamID) ||
+                                event.getTegenstander().getTeamID().equals(teamID))
+                        .collect(Collectors.toList());
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -43,14 +44,14 @@ public class EventController {
         }
         List<Event> eventList = EventRepository.allEventsList;
         List<Event> oneEventList = eventList.stream()
-                                            .filter(event -> event.getEventID().equals(wedstrijdID)).collect(Collectors.toList());
+                                            .filter(event -> event.getEventID().equals(wedstrijdID))
+                                            .collect(Collectors.toList());
         if (!oneEventList.isEmpty()) {
             return oneEventList.get(0).getAanwezigeSpelers();
         } else {
             return Collections.emptyList();
         }
     }
-
 
 
 //    @PostMapping("/events")

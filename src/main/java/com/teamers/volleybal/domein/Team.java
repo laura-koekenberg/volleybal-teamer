@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 public class Team {
 
-    private Long teamID;
+    private String teamID;
     private String teamnaam;
 
     public Team(String teamnaam) {
         this.teamnaam = teamnaam;
     }
 
-    public Team(Long teamID, String teamnaam) {
+    public Team(String teamID, String teamnaam) {
         this.teamID = teamID;
         this.teamnaam = teamnaam;
     }

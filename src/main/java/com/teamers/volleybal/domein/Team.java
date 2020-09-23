@@ -2,10 +2,12 @@ package com.teamers.volleybal.domein;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class Team {
 
     private String teamID;

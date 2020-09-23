@@ -3,12 +3,12 @@ package com.teamers.volleybal.domein;
 
 public enum EventType {
 
-    TRAINING("training"),
-    WEDSTRIJD("wedstrijd"),
-    TOERNOOI("toernooi"),
-    ZAALDIENST("zaaldienst"),
-    TELLEN("tellen"),
-    OTHER("other");
+    TRAINING("TRAINING"),
+    WEDSTRIJD("WEDSTRIJD"),
+    TOERNOOI("TOERNOOI"),
+    ZAALDIENST("ZAALDIENST"),
+    TELLEN("TELLEN"),
+    OTHER("OTHER");
 
     private final String type;
 

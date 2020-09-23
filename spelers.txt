@@ -13,3 +13,4 @@ extraSpeler2, test@speler.nl, 19, DIAGONAAL
 extraSpeler2, test@speler.nl, 19, DIAGONAAL
 extraSpeler2, test@speler.nl, 19, DIAGONAAL
 extraSpeler2, test@speler.nl, 19, DIAGONAAL
+Speler5, test@speler.nl, 19, DIAGONAAL

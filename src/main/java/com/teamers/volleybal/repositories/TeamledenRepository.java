@@ -84,7 +84,7 @@ public class TeamledenRepository {
         Speler spelerFromFile = new Speler();
         spelerFromFile.setNaam(list.get(0));
         spelerFromFile.setEmail(list.get(1));
-        spelerFromFile.setRugnummer(Integer.parseInt(list.get(2)));
+        spelerFromFile.setRugnummer(list.get(2));
         spelerFromFile.setBasispositie(list.get(3));
         return spelerFromFile;
     }
@@ -96,5 +96,6 @@ public class TeamledenRepository {
               .append(String.valueOf(speler.getRugnummer())).append(", ")
               .append(speler.getBasispositie().toUpperCase()).append("\n");
         writer.close();
+        fillSpelersOverzicht();
     }
 }

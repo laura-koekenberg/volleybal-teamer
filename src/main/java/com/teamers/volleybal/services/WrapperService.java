@@ -1,8 +1,6 @@
 package com.teamers.volleybal.services;
 
-import com.teamers.volleybal.domein.Event;
-import com.teamers.volleybal.domein.EventDto;
-import com.teamers.volleybal.domein.Team;
+import com.teamers.volleybal.domein.*;
 
 public class WrapperService {
 
@@ -23,5 +21,14 @@ public class WrapperService {
             return event.getTegenstander();
         }
         return null;
+    }
+
+    public static Speler wrapSpelerDtoToSpeler(SpelerDto speler) {
+        return Speler.builder()
+                     .naam(speler.getNaam())
+                     .email(speler.getEmail())
+                     .rugnummer(speler.getRugnummer())
+                     .basispositie(speler.getBasispositie().toUpperCase())
+                     .build();
     }
 }
